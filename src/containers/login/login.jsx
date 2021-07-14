@@ -1,9 +1,13 @@
 import React from 'react'
 import { Form, Input, Button ,Icon } from 'antd';
-
+import { connect } from 'react-redux';
+import { creatDemo1Action,creatDemo2Action } from '../../redux/action_creators/test_action';
 import './css/login.less'
 import logo from './imgs/logo.png'
 class Login extends React.Component{
+  componentDidMount(){
+    console.log(this.props)
+  }
   handleSubmit=(event)=>{
     event.preventDefault();
     this.props.form.validateFields((err,values)=>{
@@ -77,4 +81,11 @@ class Login extends React.Component{
   }
 }
 
-export default Form.create()(Login) 
+
+ export default connect(
+  state => ({test:state.test}),
+  {
+    demo1:creatDemo1Action,
+    demo2:creatDemo2Action
+  }
+)(Form.create()(Login) )

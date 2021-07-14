@@ -1,5 +1,11 @@
 import React from 'react'
-export default class Admin extends React.Component{
+import { connect } from 'react-redux'
+import { creatDemo1Action } from '../../redux/action_creators/test_action'
+
+class Admin extends React.Component{
+  componentDidMount(){
+    console.log(this.props)
+  }
   render(){
     return(
       <div>
@@ -8,3 +14,11 @@ export default class Admin extends React.Component{
     )
   }
 }
+
+export default connect(
+  state=>({peiqi:state.test}),
+  {
+    demo1:creatDemo1Action
+  }
+
+)(Admin)
