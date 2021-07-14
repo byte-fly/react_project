@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
-import Login from "./container/Login";
-import Admin from "./container/Admin";
+import Login from "./containers/login/login";
+import Admin from "./containers/admin/admin";
 
 
 export default class App extends Component {
