@@ -1,7 +1,8 @@
 import React from 'react'
-// import { createIncreamentAction,createDecreamentAction } from './redux/actionCreators'
+import { createIncreamentAction,createDecreamentAction,createIncreamentAsyncAction } from "../redux/actions/counter_action";
+import { connect } from "react-redux";
 
-export default class Counter extends React.Component{
+class Counter extends React.Component{
     componentDidMount(){
         console.log(this.props)
     }
@@ -42,3 +43,12 @@ export default class Counter extends React.Component{
         )
     }
 }
+
+export default connect(
+    state=>({count:state.count}),
+    {
+        increment:createIncreamentAction,
+        decrement:createDecreamentAction,
+        incrementAsync:createIncreamentAsyncAction
+    }
+)(Counter)
