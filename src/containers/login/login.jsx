@@ -82,6 +82,8 @@ class Login extends React.Component{
 }
 
 
+//  export default Form.create()(Login)
+ 
  export default connect(
   state => ({test:state.test}),
   {
