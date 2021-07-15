@@ -62,7 +62,7 @@ class Login extends React.Component{
                 rules: [{ validator: this.pwdValidator }],
               })(
                 <Input
-                  prefix={<Icon type='password' style={{ color: 'rgba(0,0,0,.25)' }} />}
+                  prefix={<Icon type='lock' style={{ color: 'rgba(0,0,0,.25)' }} />}
                   type="password"
                   placeholder="Password"
                 />,
