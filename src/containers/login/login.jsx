@@ -1,18 +1,35 @@
 import React from 'react'
-import { Form, Input, Button ,Icon } from 'antd';
+import { Form, Input, Button ,Icon, message } from 'antd';
 import { connect } from 'react-redux';
-import { creatDemo1Action,creatDemo2Action } from '../../redux/action_creators/test_action';
+import { creatSaveUserInfoAction } from '../../redux/action_creators/login_action';
+import { reqLogin } from '../../api';
 import './css/login.less'
 import logo from './imgs/logo.png'
+
+
 class Login extends React.Component{
   componentDidMount(){
     console.log(this.props)
   }
   handleSubmit=(event)=>{
     event.preventDefault();
-    this.props.form.validateFields((err,values)=>{
+    this.props.form.validateFields(async(err,values)=>{
+      const {username,password}=values
       if(!err){
-        alert('向服务器发送请求')
+        let result = await reqLogin(username,password)
+        const {status,msg,data}=result
+        if (status===0) {
+          console.log(result)
+
+          //2.将用户信息交给redux管理
+          this.props.saveUserInfo(data)
+          //1.
+          this.props.history.push('/admin')
+        }else{
+          message.warning(msg,3)
+        }
+      }else{
+        message.error('表单输入有误，请检查')
       }
     })
   }
@@ -85,9 +102,8 @@ class Login extends React.Component{
 //  export default Form.create()(Login)
  
  export default connect(
-  state => ({test:state.test}),
+  state => ({}),
   {
-    demo1:creatDemo1Action,
-    demo2:creatDemo2Action
+    saveUserInfo:creatSaveUserInfoAction,
   }
 )(Form.create()(Login) )
