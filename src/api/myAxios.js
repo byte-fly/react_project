@@ -32,7 +32,9 @@ instance.interceptors.response.use(
     function (error) {
         nProgress.done()
         message.error(error.message,3)
-        return new Promise(()=>{})
+        return new Promise(()=>{})//中断失败请求    处理请求时不用写.catch了
+        
+
     }
 );
 

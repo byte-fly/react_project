@@ -1,6 +1,7 @@
 import React from 'react'
 import { Form, Input, Button ,Icon, message } from 'antd';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { creatSaveUserInfoAction } from '../../redux/action_creators/login_action';
 import { reqLogin } from '../../api';
 import './css/login.less'
@@ -49,7 +50,12 @@ class Login extends React.Component{
   }
   render(){
     const { getFieldDecorator } = this.props.form;
+    const {isLogin}=this.props
     const {Item} = Form
+
+    if (isLogin) {
+      return <Redirect to='/admin'/>
+    }
     return(
       <div className="login">
         <header>
@@ -102,7 +108,7 @@ class Login extends React.Component{
 //  export default Form.create()(Login)
  
  export default connect(
-  state => ({}),
+  state => ({isLogin:state.userInfo.isLogin}),
   {
     saveUserInfo:creatSaveUserInfoAction,
   }
