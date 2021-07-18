@@ -1,9 +1,9 @@
 import React from 'react'
-import Countercontainer from '../src/containers/Counter_container'
+import CounterContainer from './containers/Counter_container.jsx'
 export default class App extends React.Component{
   render(){
     return(
-        <Countercontainer/>
+      <CounterContainer/ >
     )
   }
 }
