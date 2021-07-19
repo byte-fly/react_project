@@ -2,14 +2,17 @@ import axios from "axios";
 import qs from 'querystring'
 import { message } from "antd";
 import nProgress from "nprogress";
+import store from "../redux/store";
 import 'nprogress/nprogress.css'
 
 const instance=axios.create({
-    timeout:3000,
+    // timeout:3000,
 })
 //请求拦截器
 instance.interceptors.request.use(function (config) {
     nProgress.start()
+    const {token} = store.getState().userInfo
+    if(token) config.headers.Authorization=token
     const {method,data}=config
     //若是post请求
     if(method.toLowerCase()==='post'){

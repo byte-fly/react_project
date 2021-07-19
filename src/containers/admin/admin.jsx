@@ -1,8 +1,19 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import {Redirect} from 'react-router-dom'
+import { Layout } from 'antd';
 import { createDeleteUserInfoAction } from '../../redux/action_creators/login_action';
+import { reqCategoryList } from '../../api';
+import './css/admin.less'
+import Header from './header/header';
+const {Footer,Content,Sider}=Layout
 
+@connect(
+  state=>({userInfo:state.userInfo}),
+  {
+    deleteUserInfo:createDeleteUserInfoAction
+  }
+)
 class Admin extends React.Component{
   componentDidMount(){
     console.log(this.props)
@@ -11,6 +22,11 @@ class Admin extends React.Component{
   logout=()=>{
     this.props.deleteUserInfo()
   }
+
+  // demo=async()=>{
+  //   let result= await reqCategoryList()
+  //   console.log(result)
+  // }
 
 //在render里，若想实现跳转，最好用<Redirect>
   render(){
@@ -21,18 +37,17 @@ class Admin extends React.Component{
     }else{
       console.log('登陆了')
         return(
-          <div>
-            用户:{user.username},欢迎您登录Admin组件
-            <button onClick={this.logout}>注销</button>
-          </div>
+          <Layout className="admin">
+            <Sider className="sider">Sider</Sider>
+            <Layout>
+              <Header className="header">Header</Header>
+              <Content className="content">Content</Content>
+              <Footer className="footer">推荐使用谷歌浏览器，获取最佳体验</Footer>
+            </Layout>
+          </Layout>
         )
     }
   }
 }
 
-export default connect(
-  state=>({userInfo:state.userInfo}),
-  {
-    deleteUserInfo:createDeleteUserInfoAction
-  }
-)(Admin)
+export default Admin

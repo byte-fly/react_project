@@ -7,7 +7,13 @@ import { reqLogin } from '../../api';
 import './css/login.less'
 import logo from './imgs/logo.png'
 
-
+@connect(
+  state => ({isLogin:state.userInfo.isLogin}),
+  {
+    saveUserInfo:creatSaveUserInfoAction,
+  }
+)
+@Form.create()
 class Login extends React.Component{
   componentDidMount(){
     console.log(this.props)
@@ -105,11 +111,4 @@ class Login extends React.Component{
 }
 
 
-//  export default Form.create()(Login)
- 
- export default connect(
-  state => ({isLogin:state.userInfo.isLogin}),
-  {
-    saveUserInfo:creatSaveUserInfoAction,
-  }
-)(Form.create()(Login) )
+export default Login
