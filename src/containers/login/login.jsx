@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { creatSaveUserInfoAction } from '../../redux/action_creators/login_action';
 import { reqLogin } from '../../api';
 import './css/login.less'
-import logo from './imgs/logo.png'
+import logo from '../../static/img/logo.png'
 
 @connect(
   state => ({isLogin:state.userInfo.isLogin}),
@@ -15,9 +15,7 @@ import logo from './imgs/logo.png'
 )
 @Form.create()
 class Login extends React.Component{
-  componentDidMount(){
-    console.log(this.props)
-  }
+  
   handleSubmit=(event)=>{
     event.preventDefault();
     this.props.form.validateFields(async(err,values)=>{
@@ -26,12 +24,11 @@ class Login extends React.Component{
         let result = await reqLogin(username,password)
         const {status,msg,data}=result
         if (status===0) {
-          console.log(result)
 
           //2.将用户信息交给redux管理
           this.props.saveUserInfo(data)
           //1.
-          this.props.history.push('/admin')
+          this.props.history.push('/admin/home')
         }else{
           message.warning(msg,3)
         }
@@ -60,9 +57,10 @@ class Login extends React.Component{
     const {Item} = Form
 
     if (isLogin) {
-      return <Redirect to='/admin'/>
+      return <Redirect to='/admin/home'/>
     }
     return(
+
       <div className="login">
         <header>
           <img src={logo} alt="logo" />
